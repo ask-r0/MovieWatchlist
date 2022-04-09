@@ -4,13 +4,13 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
-import "primevue/resources/themes/saga-blue/theme.css";       //theme
-import "primevue/resources/primevue.min.css";                 //core css
-import "primeicons/primeicons.css";                           //icons
+import "primevue/resources/themes/lara-light-blue/theme.css"; //theme
+import "primevue/resources/primevue.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
 
-import 'primeflex/primeflex.css';
+import "primeflex/primeflex.css";
 
-import PrimeVue from 'primevue/config';
+import PrimeVue from "primevue/config";
 
 const app = createApp(App);
 
