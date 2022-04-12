@@ -50,6 +50,8 @@ import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 
+import WatchlistService from "../services/WatchlistService.js";
+
 export default {
   name: "LoginForm",
   components: { Card, InputText, Button, Dialog },
@@ -62,7 +64,16 @@ export default {
   },
   methods: {
     onEnter() {
-      this.openConfirmation();
+      WatchlistService.getWatchlist(this.watchlistCode)
+      .then(res => {
+        // set state of application pinia
+        console.log(res);
+        this.$router.push({ name: "WatchlistPage"});
+      })
+      .catch(err => {
+        console.log(err);
+        this.openConfirmation();
+      })
     },
     openConfirmation() {
       this.displayConfirmation = true;
@@ -73,7 +84,7 @@ export default {
     onDialogDiscard() {
       this.displayConfirmation = false;
     },
-  },
+  }
 };
 </script>
 
