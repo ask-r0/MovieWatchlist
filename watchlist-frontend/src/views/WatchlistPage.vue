@@ -1,24 +1,33 @@
 <template>
+  <WatchlistNavbar />
   <div class="flex flex-column align-items-center">
-    <h1>Watchlist</h1>
     <MovieCardList />
   </div>
 </template>
 
 <script>
 import MovieCardList from "../components/MovieCardList.vue";
+import WatchlistNavbar from "../components/WatchlistNavbar.vue";
+import Menubar from 'primevue/menubar';
+
 export default {
   name: "WatchlistPage",
-  components: { MovieCardList },
+  components: { MovieCardList, Menubar, WatchlistNavbar },
   data() {
     return {
       watchlistName: "Mine filmer",
       items: [
         {
-          label: this.watchlistName,
-          icon: "pi pi-fw pi-power-off",
+          label: "Watchlist name",
+
         },
-      ],
+        {
+          label: "New Movie"
+        },
+        {
+          label: "Remove Movies",
+        }
+      ]
     };
   },
 };
