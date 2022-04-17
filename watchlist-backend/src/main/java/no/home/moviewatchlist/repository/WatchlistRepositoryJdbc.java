@@ -1,5 +1,6 @@
 package no.home.moviewatchlist.repository;
 
+import no.home.moviewatchlist.model.Movie;
 import no.home.moviewatchlist.model.Watchlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -28,6 +29,22 @@ public class WatchlistRepositoryJdbc implements WatchlistRepository {
     }
 
     @Override
+    public Movie findMovieById(String watchlistCode, Integer movieId) {
+        String query = "SELECT * FROM movie_watchlist WHERE (watchlist_code=? AND movie_id=?)";
+
+        try {
+            return jdbcTemplate.queryForObject(
+                    query,
+                    BeanPropertyRowMapper.newInstance(Movie.class),
+                    watchlistCode,
+                    movieId
+            );
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
     public int save(Watchlist watchlist) {
         String query = "INSERT INTO watchlist(watchlist_code, watchlist_name, password)" +
                 "VALUES (?,?,?)";
@@ -36,6 +53,17 @@ public class WatchlistRepositoryJdbc implements WatchlistRepository {
                 watchlist.getWatchlistCode(),
                 watchlist.getWatchlistName()
                 , watchlist.getPassword()
+        );
+    }
+
+    @Override
+    public int save(String watchlistCode, Integer movieId) {
+        String query = "INSERT INTO movie_watchlist(watchlist_code, movie_id)" +
+                "VALUES (?,?)";
+        return jdbcTemplate.update(
+                query,
+                watchlistCode,
+                movieId
         );
     }
 }

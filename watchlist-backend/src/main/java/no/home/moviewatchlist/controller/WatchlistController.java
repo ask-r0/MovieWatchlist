@@ -1,5 +1,6 @@
 package no.home.moviewatchlist.controller;
 
+import no.home.moviewatchlist.model.Movie;
 import no.home.moviewatchlist.model.Watchlist;
 import no.home.moviewatchlist.service.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,11 @@ public class WatchlistController {
     @PostMapping("/api/watchlists")
     public ResponseEntity<String> createWatchlist(@RequestBody Watchlist watchlist) {
         return service.createWatchlist(watchlist);
+    }
+
+    @PostMapping("/api/watchlists/{watchlist_code}")
+    public ResponseEntity<String> addMovieToWatchlist(@PathVariable(value = "watchlist_code") String watchlistCode,
+                                                      @RequestBody Movie movie) {
+        return service.addMovieToWatchlist(watchlistCode, movie);
     }
 }
